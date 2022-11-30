@@ -1,30 +1,49 @@
-var path = require('path')
-const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
+// Setup empty JS object to act as endpoint for all routes
+let projectData = {};
+
+var path = require('path');
+// Require Express to run server and routes
+const express = require('express');
+const mockAPIResponse = require('./mockAPI.js');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const app = express()
+// Start up an instance of app
+const app = express();
 
-app.use(express.static('dist'))
+/* Dependencies */
+const bodyParser = require('body-parser');
+/* Middleware*/
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-console.log(__dirname)
+// Cors for cross origin allowance
+const cors = require('cors');
+app.use(cors());
+
+// Initialize the main project folder
+app.use(express.static('dist'));
+
+console.log(__dirname);
 
 app.get('/', function (req, res) {
-    res.sendFile('dist/index.html')
+    res.sendFile('dist/index.html');
 })
 
+const port = 8080;
+// Setup Server
 // designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
+app.listen(port, function () {
+    console.log(`App listening on port: ${port}`);
 })
 
 app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+    res.send(mockAPIResponse);
 })
 
 console.log(`Your API key is ${process.env.API_KEY}`);
 
-var textapi = new meaningCloudApi({
-    application_key: process.env.API_KEY
-});
+// var textapi = new meaningCloudApi({
+//     application_key: process.env.API_KEY
+// });
