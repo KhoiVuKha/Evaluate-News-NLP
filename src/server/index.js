@@ -1,6 +1,9 @@
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {};
 
+const baseURL = 'https://api.meaningcloud.com/sentiment-2.1';
+const apiKey = process.env.API_KEY;
+
 var path = require('path');
 // Require Express to run server and routes
 const express = require('express');
@@ -35,15 +38,33 @@ const port = 8080;
 // Setup Server
 // designates what port the app will listen to for incoming requests
 app.listen(port, function () {
-    console.log(`App listening on port: ${port}`);
+    console.log(`[Server] listening on port: ${port}`);
 })
 
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse);
-})
+});
 
-console.log(`Your API key is ${process.env.API_KEY}`);
 
-// var textapi = new meaningCloudApi({
-//     application_key: process.env.API_KEY
-// });
+console.log(`Your API key is ${apiKey}`);
+
+// GET route
+app.get('/all', function (req, res) {
+    res.send(projectData);
+});
+
+// POST route
+app.post('/add', addArticleData);
+
+function addArticleData(req, res) {
+    console.log('[Server] request: ',  req.body);
+    projectData.model = req.body.model;
+    projectData.score_tag = req.body.score_tag;
+    projectData.agreement = req.body.agreement;
+    projectData.subjectivity = req.body.subjectivity;
+    projectData.confidence = req.body.confidence;
+    projectData.irony = req.body.irony;
+
+    console.log(`[Server] addArticleData: `, projectData);
+    res.send(projectData);
+}
