@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Test</title>
-        <link rel="stylesheet" href="/styles/resets.css">
-        <link rel="stylesheet" href="/styles/base.css">
-        <link rel="stylesheet" href="/styles/header.css">
-        <link rel="stylesheet" href="/styles/form.css">
-        <link rel="stylesheet" href="/styles/footer.css">
-    </head>
 
-    <body>
+<head>
+    <meta charset="utf-8">
+    <title>Evaluate News with NLP</title>
+</head>
 
-        <header>
-            <div class="">
-                Logo
+<body>
+
+    <header>
+    </header>
+
+    <main>
+        <section class="input">
+            <h1>Evaluate News with NLP</h1>
+            <form class="" onsubmit="return Client.handleSubmit(event)">
+                <input id="name" type="text" name="input" value="" placeholder="Enter URL">
+                <input type="submit" name="" value="Submit" onclick="return Client.handleSubmit(event)"
+                    onsubmit="return Client.handleSubmit(event)">
+            </form>
+        </section>
+
+        <section class="output">
+            <div class="results">
+                <h2>Evaluation Results:</h2>
+                <p id="error"></p>
+                <p id="score"></p>
+                <p id="subjectivity"></p>
+                <p id="irony"></p>
+                <p id="text"></p>
             </div>
-            <div class="">
-                navigation
-            </div>
-        </header>
 
-        <main>
-            <section>
-                <form class="" onsubmit="return handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
-                    <input type="submit" name="" value="submit" onclick="return handleSubmit(event)" onsubmit="return handleSubmit(event)">
-                </form>
-            </section>
+        </section>
+    </main>
 
-            <section>
-                <strong>Form Results:</strong>
-                <div id="results"></div>
-            </section>
-        </main>
+    <footer>
+    </footer>
+</body>
 
-        <footer>
-            <p>This is a footer</p>
-        </footer>
-
-    </body>
 </html>

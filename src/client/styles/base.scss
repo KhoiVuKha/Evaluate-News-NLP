@@ -1,14 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Roboto&display=swap');
+
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-width: 320px;
+    background-color: #057bc4;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    border-bottom: 1px solid #F2441D;
 }
 
 main {
     flex: 2;
 }
 
+a {
+    color: #ffffff;
+    &:hover,
+    &:active
+    {
+        color:#30DFF2;
+    }
+}
+
+p {
+    margin-bottom: 0.25rem;
+}
+
 section {
     max-width: 800px;
     margin: 50px auto;
+}
+h1 {
+    font-family: 'Patua One', cursive;
+    font-size: 3rem;
+    text-align: center;
+}
+h2 {
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin: 0 0 1rem;
+}
+.input {
+    background-color: #F2441D;
+}
+.results {
+    width: 100%;
+    max-width: 800px;
+    background-color: #0378A6;
+    min-height: 200px;
+    padding: 1.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+    section {
+        margin: 20px auto;
+    }
 }
