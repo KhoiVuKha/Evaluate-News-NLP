@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {};
 
@@ -8,8 +11,6 @@ var path = require('path');
 // Require Express to run server and routes
 const express = require('express');
 const mockAPIResponse = require('./mockAPI.js');
-const dotenv = require('dotenv');
-dotenv.config();
 
 // Start up an instance of app
 const app = express();
@@ -44,7 +45,6 @@ app.listen(port, function () {
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse);
 });
-
 
 console.log(`Your API key is ${apiKey}`);
 
