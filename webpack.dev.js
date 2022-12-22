@@ -9,8 +9,6 @@ module.exports = {
     devtool: 'source-map',
     stats: 'verbose',
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.min.js',
         libraryTarget: 'var',
         library: 'Client'
     },

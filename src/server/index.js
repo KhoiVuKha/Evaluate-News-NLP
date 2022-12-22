@@ -49,22 +49,26 @@ app.get('/test', function (req, res) {
 console.log(`Your API key is ${apiKey}`);
 
 // GET route
-app.get('/all', function (req, res) {
-    res.send(projectData);
-});
+app.get('/all', getArticleInfo);
+function getArticleInfo(req, res) {
+  res.send(projectData);
+};
 
 // POST route
 app.post('/add', addArticleData);
-
-function addArticleData(req, res) {
+async function addArticleData(req, res) {
     console.log('[Server] request: ',  req.body);
-    projectData.model = req.body.model;
-    projectData.score_tag = req.body.score_tag;
-    projectData.agreement = req.body.agreement;
-    projectData.subjectivity = req.body.subjectivity;
-    projectData.confidence = req.body.confidence;
-    projectData.irony = req.body.irony;
-
     console.log(`[Server] addArticleData: `, projectData);
     res.send(projectData);
-}
+};
+
+// app.post('/addData', async function(req, res) {
+//     const userInput = req.body.url;
+//     console.log(`You entered: ${userInput}`);
+//     const apiURL = `${baseURL}?key=${apiKey}&url=${userInput}&lang=en`
+
+//     const response = await fetch(apiURL)
+//     const mcData = await response.json()
+//     console.log(mcData)
+//     res.send(mcData)
+// })

@@ -22,44 +22,16 @@ const handleSubmit = async (event) => {
   textElement.innerHTML = '';
 
   let userInputURL = document.getElementById('name').value;
-  const apiKey = '2d68670e66ec5c03062c9c92d304174a';
 
   // Check of url user provided is valid
   if (Client.checkForUrl(userInputURL)) {
     console.log('[Client] valid url');
 
-    console.log('api key: ', apiKey);
+    // Post data
+    postData('http://localhost:8080/add', {url: userInputURL})
 
-    getArticleData(baseURL, userInputURL, apiKey).then((data) => {
-      console.log("Handle process data received");
-        if (data) {
-          // Process data received here
-        const {
-          agreement: agreement,
-          confidence: confidence,
-          irony: irony,
-          model: model,
-          score_tag: score_tag,
-          subjectivity: subjectivity
-        } = data;
-
-        const info = {
-          agreement,
-          confidence,
-          irony,
-          model,
-          score_tag: parseScoreValue(score_tag),
-          subjectivity
-        };
-
-        // Post data
-        postData("/add", info);
-
-        // Update UI
-        updateUI();
-
-      }
-    });
+    // Update UI
+    updateUI();
 
   } else {
       // output error message
@@ -69,48 +41,59 @@ const handleSubmit = async (event) => {
   }
 }
 
-/* Function to GET Web API Data */
-const getArticleData = async (url, userInputURL, key) => {
-  const res = await fetch(url + `?key=${key}` + '&url=' + userInputURL + '&lang=en');
-  try {
-    const data = await res.json();
-    console.log(data)
-    return data;
-  }  catch(error) {
-    console.log("error", error);
-  }
-}
-
 //TODO:
 /* Function to POST data */
 const postData = async (url = "", data = {}) => {
   console.log("[Client] postData");
+  console.log("data: ", data);
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'same-origin',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  });
+  try {
+    const newData = await response.json();
+    console.log('Data received:', newData)
+    return newData;
+  } catch (error) {
+    console.log('error', error);
+  }
 };
   
 //TODO:
 /* Function to update UI */
 const updateUI = async () => {
+  console.log("updateUI");
+  const request = await fetch('http://localhost:8080/all');
+  try {
+    const allData = await request.json();
+  } catch(error) {
+    console.log("error", error);
+  }
 };
 
 /* Function to describe score values */
 function parseScoreValue(score) {
   switch (score) {
     case "P+":
-        return "Strong positive";
+      return "Strong positive";
     case "P":
-        return "Positive";
+      return "Positive";
     case "NEU":
-        return "Neutral";
+      return "Neutral";
     case "N":
-        return "Negative";
+      return "Negative";
     case "N+":
-        return "Strong negative";
+      return "Strong negative";
     case "NONE":
-        return "Without sentiment";
+      return "Without sentiment";
     default:
-        return "No data";
+      return "No data";
   }
 }
-
 
 export { handleSubmit }
