@@ -1,7 +1,3 @@
-/* Global Variables */
-// Base URL
-const baseURL = 'https://api.meaningcloud.com/sentiment-2.1';
-
 /* Global variables */
 const errorElement = document.getElementById('error');
 const scoreElement = document.getElementById('score');
