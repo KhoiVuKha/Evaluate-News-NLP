@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
+const fetch = require('node-fetch');
 
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {};
@@ -57,18 +58,15 @@ function getArticleInfo(req, res) {
 // POST route
 app.post('/add', addArticleData);
 async function addArticleData(req, res) {
-    console.log('[Server] request: ',  req.body);
-    console.log(`[Server] addArticleData: `, projectData);
-    res.send(projectData);
+    const userInput = req.body.url;
+    console.log(`[Server] You entered: ${userInput}`);
+    const response = await fetch(baseURL + `?key=${apiKey}` + '&url=' + userInput + '&lang=en');
+
+    try {
+        projectData = await response.json();
+        console.log(`[Server] addArticleData`);
+        res.send(projectData);
+    } catch (error) {
+        console.log("error", error);
+    }
 };
-
-// app.post('/addData', async function(req, res) {
-//     const userInput = req.body.url;
-//     console.log(`You entered: ${userInput}`);
-//     const apiURL = `${baseURL}?key=${apiKey}&url=${userInput}&lang=en`
-
-//     const response = await fetch(apiURL)
-//     const mcData = await response.json()
-//     console.log(mcData)
-//     res.send(mcData)
-// })

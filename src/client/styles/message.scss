@@ -10,7 +10,9 @@
 }
 
 #score,
+#agreement,
 #subjectivity,
+#confidence,
 #irony,
 #text {
     @extend %message;

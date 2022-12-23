@@ -5,7 +5,9 @@ const baseURL = 'https://api.meaningcloud.com/sentiment-2.1';
 /* Global variables */
 const errorElement = document.getElementById('error');
 const scoreElement = document.getElementById('score');
+const agreementElement = document.getElementById('agreement');
 const subjectivityElement = document.getElementById('subjectivity');
+const confidentElement = document.getElementById('confidence');
 const ironyElement = document.getElementById('irony');
 const textElement = document.getElementById('text');
 
@@ -31,7 +33,9 @@ const handleSubmit = async (event) => {
     postData('http://localhost:8080/add', {url: userInputURL})
 
     // Update UI
-    updateUI();
+    .then(
+      updateUI()
+    )
 
   } else {
       // output error message
@@ -57,7 +61,7 @@ const postData = async (url = "", data = {}) => {
   });
   try {
     const newData = await response.json();
-    console.log('Data received:', newData)
+    console.log('[Client] Data received:', newData)
     return newData;
   } catch (error) {
     console.log('error', error);
@@ -71,6 +75,17 @@ const updateUI = async () => {
   const request = await fetch('http://localhost:8080/all');
   try {
     const allData = await request.json();
+    // Clear old error
+    errorElement.innerHTML = '';
+    errorElement.classList.remove('error');
+
+    // Update results
+    scoreElement.innerHTML = 'Polarity: ' + parseScoreValue(allData.score_tag);
+    agreementElement.innerHTML = `Agreement: ${allData.agreement}`;
+    subjectivityElement.innerHTML = `Subjectivity: ${allData.subjectivity}`;
+    confidentElement.innerHTML = `Confidence: ${allData.confidence}`;
+    ironyElement.innerHTML = `Irony: ${allData.irony}`;
+    textElement.innerHTML = `Text: ${allData.sentence_list[0].text}`;
   } catch(error) {
     console.log("error", error);
   }
