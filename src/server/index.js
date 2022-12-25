@@ -20,7 +20,9 @@ const app = express();
 const bodyParser = require('body-parser');
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 // Cors for cross origin allowance
@@ -32,18 +34,18 @@ app.use(express.static('dist'));
 
 console.log(__dirname);
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.sendFile('dist/index.html');
 })
 
 const port = 8080;
 // Setup Server
 // designates what port the app will listen to for incoming requests
-app.listen(port, function () {
+app.listen(port, function() {
     console.log(`[Server] listening on port: ${port}`);
 })
 
-app.get('/test', function (req, res) {
+app.get('/test', function(req, res) {
     res.send(mockAPIResponse);
 });
 
@@ -51,8 +53,10 @@ console.log(`Your API key is ${apiKey}`);
 
 // GET route
 app.get('/all', getArticleInfo);
+
 function getArticleInfo(req, res) {
-  res.send(projectData);
+    console.log(`[Server] getArticleInfo`);
+    res.send(projectData);
 };
 
 // POST route
