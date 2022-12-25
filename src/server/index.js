@@ -51,14 +51,6 @@ app.get('/test', function(req, res) {
 
 console.log(`Your API key is ${apiKey}`);
 
-// GET route
-app.get('/all', getArticleInfo);
-
-function getArticleInfo(req, res) {
-    console.log(`[Server] getArticleInfo`);
-    res.send(projectData);
-};
-
 // POST route
 app.post('/add', addArticleData);
 async function addArticleData(req, res) {

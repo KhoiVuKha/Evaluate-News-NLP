@@ -24,7 +24,7 @@ const handleSubmit = async (event) => {
 
     // Check of url user provided is valid
     if (Client.checkForUrl(userInputURL)) {
-        console.log('[Client] valid url');
+        console.log('[Client] url input is good!');
 
         // Post data
         postData('http://localhost:8080/add', {
@@ -32,14 +32,14 @@ const handleSubmit = async (event) => {
         }).then((data) => {
             if (data) {
                 // Update UI
-                updateUI();
+                updateUI(data);
             }
         });
     } else {
         // output error message
         errorElement.innerHTML = 'Invalid URL. Please make sure the URL starts with http:// or https:// and has no spaces.';
         errorElement.classList.add('error');
-        console.log('invalid url');
+        console.log('[Client] invalid url');
     }
 }
 
@@ -61,30 +61,23 @@ const postData = async (url = "", data = {}) => {
         console.log('[Client] Data received:', newData)
         return newData;
     } catch (error) {
-        console.log('error', error);
+        console.log('[Client] error on postData: ', error);
     }
 };
 
 /* Function to update UI */
-const updateUI = async () => {
-    console.log("updateUI");
-    const request = await fetch('http://localhost:8080/all');
-    try {
-        const allData = await request.json();
-        // Clear old error
-        errorElement.innerHTML = '';
-        errorElement.classList.remove('error');
+const updateUI = (data) => {
+    // Clear old error
+    errorElement.innerHTML = '';
+    errorElement.classList.remove('error');
 
-        // Update results
-        scoreElement.innerHTML = 'Polarity: ' + parseScoreValue(allData.score_tag);
-        agreementElement.innerHTML = `Agreement: ${allData.agreement}`;
-        subjectivityElement.innerHTML = `Subjectivity: ${allData.subjectivity}`;
-        confidentElement.innerHTML = `Confidence: ${allData.confidence}`;
-        ironyElement.innerHTML = `Irony: ${allData.irony}`;
-        textElement.innerHTML = `Text: ${allData.sentence_list[0].text}`;
-    } catch (error) {
-        console.log("error", error);
-    }
+    // Update results
+    scoreElement.innerHTML = 'Polarity: ' + parseScoreValue(data.score_tag);
+    agreementElement.innerHTML = `Agreement: ${data.agreement}`;
+    subjectivityElement.innerHTML = `Subjectivity: ${data.subjectivity}`;
+    confidentElement.innerHTML = `Confidence: ${data.confidence}`;
+    ironyElement.innerHTML = `Irony: ${data.irony}`;
+    textElement.innerHTML = `Text: ${data.sentence_list[0].text}`;
 };
 
 /* Function to describe score values */
