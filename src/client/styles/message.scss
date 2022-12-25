@@ -15,5 +15,6 @@
 #confidence,
 #irony,
 #text {
+    color: black;
     @extend %message;
 }

@@ -5,11 +5,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
     min-width: 320px;
-    background-color: #057bc4;
-    font-family: 'Roboto', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 16px;
     color: #ffffff;
-    border-bottom: 1px solid #F2441D;
+    background: url("../image/view-foggy-mountain-landscape.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 main {
@@ -17,7 +19,7 @@ main {
 }
 
 a {
-    color: #ffffff;
+    color: black;
     &:hover,
     &:active
     {
@@ -33,25 +35,28 @@ section {
     max-width: 800px;
     margin: 50px auto;
 }
+
 h1 {
-    font-family: 'Patua One', cursive;
+    color: black;
+    font-family: sans-serif;
     font-size: 3rem;
     text-align: center;
 }
+
 h2 {
+    color: black;
     font-size: 1.25rem;
     font-weight: 300;
     margin: 0 0 1rem;
 }
-.input {
-    background-color: #F2441D;
-}
+
 .results {
     width: 100%;
     max-width: 800px;
-    background-color: #0378A6;
+    background-color: #ffffff;
     min-height: 200px;
     padding: 1.5rem;
+    border-radius: 10px;
 }
 
 @media only screen and (max-width: 600px) {
