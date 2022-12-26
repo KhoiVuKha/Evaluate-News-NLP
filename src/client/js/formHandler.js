@@ -37,7 +37,7 @@ const handleSubmit = async (event) => {
         });
     } else {
         // output error message
-        errorElement.innerHTML = 'Invalid URL. Please make sure the URL starts with http:// or https:// and has no spaces.';
+        errorElement.innerHTML = 'Invalid URL. Please make sure the URL has no spaces and starts with http:// or https://';
         errorElement.classList.add('error');
         console.log('[Client] invalid url');
     }
@@ -94,12 +94,13 @@ function parseScoreValue(score) {
         case "N+":
             return "Strong negative";
         case "NONE":
-            return "Without sentiment";
+            return "No sentiment";
         default:
             return "No data";
     }
 }
 
 export {
-    handleSubmit
+    handleSubmit,
+    parseScoreValue
 }
