@@ -66,6 +66,10 @@ npm run start
 
 Navigate to http://localhost:8080/ in your browser.
 
+**6. Run unit testing**
+```bash
+npm run test
+```
 
 ## Usage
 To use the app, enter a URL in the input field and press the **Submit** button. 
